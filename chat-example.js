@@ -13,7 +13,7 @@ if (Meteor.isClient) {
   Template.chat.events({
     'submit form': function (event) {
       var $input = $('#chat_input')
-      Messages.insert({text: $input.val()})
+      Messages.insert({text: $input.val(), user: Meteor.user().emails[0].address, date: new Date()});
       $input.val("")
     }
   });
@@ -21,6 +21,6 @@ if (Meteor.isClient) {
 
 if (Meteor.isServer) {
   Meteor.startup(function () {
-    // code to run on server at startup
+    Messages.remove({});
   });
 }
